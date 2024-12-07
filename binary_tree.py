@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import Optional
+from typing import Optional, List
 
 class TreeNode:
     def __init__(self, val: int):
@@ -43,6 +43,43 @@ def remove(node: Optional[TreeNode], val: int) -> Optional[TreeNode]:
     node.right = remove(node.right, min.val)
     return node
 
+def inorder(node: Optional[TreeNode]) -> List[int]:
+    output = []
+    stack = []
+    current = node
+    while current or stack:
+        while current:
+            stack.append(current)
+            current = current.left
+        current = stack.pop()
+        output.append(current.val)
+        current = current.right
+    return output
+
+def preorder(node: Optional[TreeNode]) -> List[int]:
+    output = []
+    stack = []
+    current = node
+    while current or stack:
+        while current:
+            output.append(current.val)
+            stack.append(current)
+            current = current.left
+        current = stack.pop()
+        current = current.right
+    return output
+
+def postorder(node: Optional[TreeNode]) -> List[int]:
+   output = []
+   stack = []
+   current = node
+   while current or stack:
+       while current:
+           stack.append(current)
+           current = current.left
+       current = stack.pop()
+       current = current.right
+   return output
 
 
 if __name__=="__main__":
@@ -59,3 +96,11 @@ if __name__=="__main__":
     tree = remove(tree, 7)
     print(tree.val, tree.left.val, tree.right.val)
 
+    sorted = inorder(tree)
+    print(sorted)
+
+    presorted = preorder(tree)
+    print(presorted)
+
+    postsorted = postorder(tree)
+    print(postsorted)
