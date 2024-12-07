@@ -69,21 +69,20 @@ def preorder(node: Optional[TreeNode]) -> List[int]:
         current = current.right
     return output
 
-""" def postorder(node: Optional[TreeNode]) -> List[int]:
+def postorder(node: Optional[TreeNode]) -> List[int]:
     output = []
-    stack = []
-    current = node
-    while current or stack:
-        while current:
-            stack.append(current)
-            current = current.left
-        current = stack.pop()
-        current = current.right
-    return output """
+    def helper(node: Optional[TreeNode], output: List[int]) -> None:
+        if not node:
+            return
+        helper(node.left, output)
+        helper(node.right, output)
+        output.append(node.val)
+    helper(node, output)
+    return output
 
 
 if __name__=="__main__":
-    data = [4, 3, 6, 2, 5, 7, 8]
+    data = [6, 2, 7, 1, 4, 3, 5, 9, 8]
 
     tree = None
 
@@ -93,8 +92,8 @@ if __name__=="__main__":
     print(tree.val, tree.left.val, tree.right.val)
     print(min_value_node(tree).val, min_value_node(tree.right).val)
 
-    tree = remove(tree, 8)
-    print(tree.val, tree.left.val, tree.right.val)
+    #tree = remove(tree, 8)
+    #print(tree.val, tree.left.val, tree.right.val)
 
     sorted = inorder(tree)
     print(sorted)
@@ -102,5 +101,5 @@ if __name__=="__main__":
     presorted = preorder(tree)
     print(presorted)
 
-    #postsorted = postorder(tree)
-    #print(postsorted)
+    postsorted = postorder(tree)
+    print(postsorted)
