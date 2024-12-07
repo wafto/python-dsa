@@ -71,13 +71,13 @@ def preorder(node: Optional[TreeNode]) -> List[int]:
 
 def postorder(node: Optional[TreeNode]) -> List[int]:
     output = []
-    def helper(node: Optional[TreeNode], output: List[int]) -> None:
+    def helper(node: Optional[TreeNode]) -> None:
         if not node:
             return
-        helper(node.left, output)
-        helper(node.right, output)
+        helper(node.left)
+        helper(node.right)
         output.append(node.val)
-    helper(node, output)
+    helper(node)
     return output
 
 
